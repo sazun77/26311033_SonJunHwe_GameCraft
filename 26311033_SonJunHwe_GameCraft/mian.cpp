@@ -4,6 +4,4 @@
 int main()
 {
 	cout << "Hello world?\n";
-
-	g2_
 }
