@@ -1,12 +1,12 @@
 #pragma once
-#include "main.h"
+#include "glc2d.h"
 #define FILENAMEMAX 250
 
 class glc2image
 {
 public:
 	void Setup(const char* fileName);
-	void RenderMain();
+	void Main();// 이거 굴려서 그려야 함.
 	void End();
 
 	void SetPos(const int x, const int y);

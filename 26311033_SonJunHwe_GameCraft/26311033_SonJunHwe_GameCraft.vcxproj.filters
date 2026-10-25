@@ -30,18 +30,9 @@
     <ClCompile Include="glc2sound.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="character.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="item.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
+    <ClInclude Include="myheader.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="glc2window.h">
@@ -51,15 +42,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="glc2sound.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="character.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="item.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

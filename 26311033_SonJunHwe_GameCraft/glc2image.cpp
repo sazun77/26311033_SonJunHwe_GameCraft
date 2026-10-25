@@ -1,11 +1,9 @@
 #include "glc2image.h"
-#include "main.h"
-//#define _CRT_SECURE_NO_WARNINGS
 
 // 좌표를 입력하면 해당 위치에 이미지 표시.
 // 렌더를 안하면 바로 다음render()에서 아라야시키 당하는 듯.
 // m_pos는 생략 가능한 듯.
-void glc2image::RenderMain()
+void glc2image::Main()
 {
 	g2_Draw2D(m_imageIdx, nullptr, &m_pos);
 }

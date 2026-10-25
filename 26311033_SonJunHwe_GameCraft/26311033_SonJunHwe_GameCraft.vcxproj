@@ -127,22 +127,16 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="character.cpp" />
     <ClCompile Include="glc2image.cpp" />
     <ClCompile Include="glc2sound.cpp" />
     <ClCompile Include="glc2window.cpp" />
-    <ClCompile Include="item.cpp" />
     <ClCompile Include="mian.cpp" />
-    <ClCompile Include="player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="character.h" />
     <ClInclude Include="glc2image.h" />
     <ClInclude Include="glc2sound.h" />
     <ClInclude Include="glc2window.h" />
-    <ClInclude Include="item.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="player.h" />
+    <ClInclude Include="myheader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
