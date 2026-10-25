@@ -15,6 +15,7 @@
 #endif
 #endif
 
+#include <glc2d.h>
 #include <string>
 #include <vector>
 #include <iostream>

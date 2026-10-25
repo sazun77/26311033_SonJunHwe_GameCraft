@@ -38,6 +38,6 @@ private:
 	int m_int{};
 	int m_wis{};
 	int m_chr{};
-
-	vector<item*> m_itemsP{};
+public:
+	vector<void*> itemsP{};
 };

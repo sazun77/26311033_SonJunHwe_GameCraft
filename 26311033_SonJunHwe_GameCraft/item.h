@@ -30,6 +30,6 @@ private:
 	void PhaseBattleEnd();
 
 public:
-	character* m_ownerP{};
+	void* m_ownerP{};
 };
 
