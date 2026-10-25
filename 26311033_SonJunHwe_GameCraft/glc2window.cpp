@@ -16,17 +16,14 @@ int AppRender()
 {
 	return window.Render();
 }
-
 int AppFrameMove()
 {
 	return window.FrameMove();
 }
-
 int AppKeyboard(uint8_t* keyP)
 {
 	return window.Keyboard(keyP);
 }
-
 int AppMouse(int x, int y, int z, int event)
 {
 	return window.Mouse(x,y,z,event);
@@ -41,7 +38,6 @@ int glc2window::Render()
 
 	return SUCCESS;
 }
-
 int glc2window::FrameMove()
 {
 	FrameMove_Update();
@@ -53,6 +49,22 @@ int glc2window::FrameMove()
 	Sleep();
 	return SUCCESS;
 }
+int glc2window::Keyboard(uint8_t* keyP)
+{
+	//	std::cout << keyP << '\n';
+
+	return SUCCESS;
+}
+int glc2window::Mouse(int x, int y, int z, int event)
+{
+	// 어째서인지 내부 구조가 작동 안함...
+	//std::cout << x << ' ';
+	//std::cout << y << ' ';
+	//std::cout << z << ' ';
+	//std::cout << event << '\n';
+	return SUCCESS;
+}
+
 void glc2window::FrameMove_Update()
 {
 
@@ -66,19 +78,22 @@ void glc2window::FrameMove_Mouse()
 	if (g2_GetMouseEvent(LButton))
 	{
 		cout << "L click\n";
+		m_mouseEvent = LButton;
 	}
 	else if (g2_GetMouseEvent(RButton))
 	{
 		cout << "R click\n";
-
+		m_mouseEvent = RButton;
 	}
 	else if (g2_GetMouseEvent(MButton))
 	{
 		cout << "M click\n";
+		m_mouseEvent = MButton;
 	}
 	else
 	{
-		cout << "No click\n";
+		//cout << "No click\n";
+		m_mouseEvent = NONE;
 	}
 }
 void glc2window::FrameMove_Keyboard()
@@ -90,35 +105,10 @@ void glc2window::FrameMove_Keyboard()
 		if (pKeyboard[i])
 		{
 			printf("You Pressed %d key!!!\n", i);
+
+			break;
 		}
 	}
-}
-
-int glc2window::Keyboard(uint8_t* keyP)
-{
-	std::cout << keyP << '\n';
-
-	return SUCCESS;
-}
-
-int glc2window::Mouse(int x, int y, int z, int event)
-{
-	std::cout << x << ' ';
-	std::cout << y << ' ';
-	std::cout << z << ' ';
-	std::cout << event << '\n';
-	return SUCCESS;
-}
-
-
-void glc2window::Sleep(int delay)
-{
-	std::this_thread::sleep_for(std::chrono::milliseconds(delay));
-}
-
-void glc2window::Close()
-{
-	PostMessage(m_hWnd, WM_CLOSE, 0, 0);
 }
 
 void glc2window::Initialize()
@@ -149,17 +139,23 @@ void glc2window::Initialize()
 	// 이거 있어야 창 닫기 가능.
 	m_hWnd = g2_GetHwnd();
 }
-
 void glc2window::Run()
 {
 	std::cout << "Running Window\n";
 	g2_Run();	// 여기서 명령을 추가로 하는 법을 모르겠음.
 }
-
 void glc2window::Destroy()
 {
 	std::cout << "Desroying Window\n";
 	g2_DestroyWin();
+}
+void glc2window::Sleep(int delay)
+{
+	std::this_thread::sleep_for(std::chrono::milliseconds(delay));
+}
+void glc2window::Close()
+{
+	PostMessage(m_hWnd, WM_CLOSE, 0, 0);
 }
 
 void glc2window::AddImage(glc2image* glc2image)
@@ -172,12 +168,10 @@ void glc2window::SetPos(const float x, const float y)
 	SetPosX(x);
 	SetPosY(y);
 }
-
 void glc2window::SetPosX(const float x)
 {
 	m_pos.x = x;
 }
-
 void glc2window::SetPosY(const float y)
 {
 	m_pos.y = y;
@@ -187,12 +181,10 @@ float glc2window::GetPosX()
 {
 	return m_pos.x;
 }
-
 float glc2window::GetPosY()
 {
 	return m_pos.y;
 }
-
 int glc2window::GetWidth()
 {
 	return m_width;

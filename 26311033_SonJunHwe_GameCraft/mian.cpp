@@ -15,8 +15,19 @@
 #endif
 
 #include "glc2window.h"
+#include "Utility.h"
 
 int main()
 {
-	
+
+
+	SetConsole();
+
+	window.Initialize();
+
+	window.Run();
+
+	window.Destroy();
+
+	return 0;
 }

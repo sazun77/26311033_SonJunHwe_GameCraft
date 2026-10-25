@@ -21,6 +21,7 @@ void glc2image::Initialize(int sprite, const float x , const float y )
 
 	window.AddImage(this);
 }
+
 // 좌표를 입력하면 해당 위치에 이미지 표시.
 // 렌더를 안하면 바로 다음render()에서 아라야시키 당하는 듯.
 // m_pos는 생략 가능한 듯.

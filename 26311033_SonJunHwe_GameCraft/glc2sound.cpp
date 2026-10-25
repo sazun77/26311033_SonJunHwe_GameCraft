@@ -28,6 +28,11 @@ int glc2sound::SetIdx(const char* soundFile)
 // 家府 犁积, true甫 持栏搁 风橇.
 void glc2sound::SoundPlay(const bool doLoop)
 {
+	if (g2_SoundIsPlaying(m_idx))
+	{
+		g2_SoundReset(m_idx);
+	}
+
 	g2_SoundPlay(m_idx, doLoop);
 }
 
