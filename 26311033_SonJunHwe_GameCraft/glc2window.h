@@ -6,12 +6,13 @@
 
 enum
 {
-	//
-	GAMETICK = 300,
-	SUCCESS=1,
+	FAILED = 0,
+	SUCCESS = 1,
 
-	WINDOWX=960,
-	WINDOWY=540,
+	GAMETICK = 300,
+
+	WINDOWX = 960,
+	WINDOWY = 540,
 };
 
 typedef enum MOUSEEVENT
@@ -48,6 +49,7 @@ public:
 	void Destroy(); // CLEAR.
 	
 	void AddImage(glc2image* glc2image);
+	void DeleteImage(glc2image* glc2image);
 
 	void SetPos(float x, float y);// CLEAR.
 	void SetPosX(float x);// CLEAR.

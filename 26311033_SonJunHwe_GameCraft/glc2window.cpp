@@ -5,7 +5,6 @@
 
 #include "glc2window.h"
 #include "glc2sound.h"
-
 using std::cout;
 
 
@@ -161,6 +160,16 @@ void glc2window::Close()
 void glc2window::AddImage(glc2image* glc2image)
 {
 	m_images.push_back(glc2image);
+}
+
+void glc2window::DeleteImage(glc2image* glc2image)
+{
+	auto targetLocation = find(m_images.begin(), m_images.end(), glc2image);
+
+	if (targetLocation != m_images.end())
+	{
+		m_images.erase(targetLocation);
+	}
 }
 
 void glc2window::SetPos(const float x, const float y)

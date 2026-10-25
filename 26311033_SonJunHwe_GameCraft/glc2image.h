@@ -17,9 +17,15 @@ enum
 class glc2image
 {
 public:
-	void Initialize(int sprite,const float x =INPUT_NULL,const float y= INPUT_NULL);
+	CSTR inputFilename{};
+	const float initX{ INPUT_NULL };
+	const float initY{ INPUT_NULL };
+
+	glc2image(CSTR filename, const float x, const float y);
+	//void Initialize(int sprite);
 	void Draw();
-	void Release();
+	~glc2image();
+	//void Release();
 
 	void SetImage(int sprite);
 	void SetAlpha(int alpha);
