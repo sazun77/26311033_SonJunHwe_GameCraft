@@ -1,35 +1,75 @@
 #pragma once
+
 #include <vector>
+#include "glc2d.h"
 #include "glc2image.h"
 
-int RenderMain();
+enum
+{
+	// 마우스 이벤트 (0: LButton, 1: RButton, 2: MButton)
+	LButton=0,
+	RButton=1,
+	MButton=2,
+	//
+	GAMETICK = 300,
+	SUCCESS=1,
+
+	WINDOWX=960,
+	WINDOWY=540,
+};
+
+ int AppRender();
+ int AppFrameMove();
+ int AppKeyboard(uint8_t* keyP);
+ int AppMouse(int x,int y, int z,int event);
 
 class glc2window
 {
+
 public:
-	int RenderDetailes();
+	int Render();
+	int FrameMove();
+	int Keyboard(uint8_t* keyP);
+	int Mouse(int x, int y, int z, int event);
 
-	void Setup();
+	void FrameMove_Update();
+	void FrameMove_Mouse();
+	void FrameMove_Keyboard();
+	//void RenderDetailes();
+	void Initialize();
 	void Run();
+	void Sleep(int delay=GAMETICK);
+	void Close();
 	void Destroy();
+	
+	void AddImage(glc2image* glc2image);
 
-	int SetImageNew(const char* fileP, const int x = {}, const int y = {});
-	void SetImagePos(const int imageIdx, const int x, const int y);
+	void SetPos(float x, float y);
+	void SetPosX(float x);
+	void SetPosY(float y);
 
+	float GetPosX();
+	float GetPosY();
 	int GetWidth();
 	int GetHeight();
 
-	int GetImageWidth(const int imageIdx);
-	int GetImageHeight(const int imageIdx);
-	int GetImageX(const int imageIdx);
-	int GetImageY(const int imageIdx);
+	
 private:
+	HWND m_hWnd{};
 	VEC2 m_pos{};
-	const int m_width{ 1280 };
-	const int m_height{ 720 };
+	const int m_width{960};
+	const int m_height{ 540 };
 	const char* m_name{ "PressSpace" };
 
 	const int m_color{ 0x77777777 };
-public:
-	std::vector<glc2image> m_images{};	// 나중에 그냥 포인터 추가하는 형식으로 바꿔야 할 듯.
+	//mouse
+	int m_mouseX{};
+	int m_mouseY{};
+	int m_mouseZ{};
+
+	//
+	int m_count{};//DEBUG
+	std::vector< glc2image*> m_images{};
 };
+
+extern glc2window window;

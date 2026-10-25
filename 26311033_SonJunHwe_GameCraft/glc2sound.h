@@ -1,5 +1,4 @@
 #pragma once
-
 class glc2sound
 {
 public:
@@ -10,3 +9,4 @@ public:
 private:
 	int m_idx{};
 };
+

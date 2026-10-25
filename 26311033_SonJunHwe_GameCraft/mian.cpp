@@ -16,8 +16,6 @@
 
 #include "glc2window.h"
 
-glc2window window{};
-
 int main()
 {
 	
