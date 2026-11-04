@@ -1,16 +1,20 @@
 #pragma once
-
-enum
+#include "glc2window.h"
+enum COMMAND
 {
-
+	ESC = 27,
 };
 
-class Aimtest
+class Aimtest : public glc2window
 {
-private:
+public:
 	Aimtest();
-	int Main();
 	~Aimtest();
+	void FrameMove_Update() override;
 
+
+private:
+	glc2image* image_aim;
+	glc2image* image_target;
 };
 

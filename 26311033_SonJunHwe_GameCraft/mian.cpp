@@ -16,18 +16,17 @@
 
 #include "glc2window.h"
 #include "Utility.h"
+#include "Aimtest.h"
 
 int main()
 {
-
-
 	SetConsole();
 
-	window.Initialize();
+	Aimtest* aimtest = new Aimtest;
 
-	window.Run();
+	aimtest->Run();
 
-	window.Destroy();
+	delete aimtest;
 
 	return 0;
 }

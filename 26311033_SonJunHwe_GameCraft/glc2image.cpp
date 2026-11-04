@@ -5,11 +5,12 @@
 #include <iostream>
 #include <string.h>
 
-glc2image::glc2image(CSTR filename, const float x, const float y) :inputFilename(filename), initX(x), initY(y)
+glc2image::glc2image( glc2window* windowP,CSTR filename, const float x, const float y) //:inputFilename(filename), initX(x), initY(y)
 {
-	m_sprite = g2_TextureLoad(filename);
+	m_windowP = windowP;
+	m_spriteIdx = g2_TextureLoad(filename);
 
-	SetImage(m_sprite);
+	SetImage(m_spriteIdx);
 
 
 	if (x != INPUT_NULL)
@@ -21,12 +22,12 @@ glc2image::glc2image(CSTR filename, const float x, const float y) :inputFilename
 		SetPosY(y);
 	}
 
-	window.AddImage(this);
+	m_windowP->AddImage(this);
 }
 
 // 이후에 활용할 수 있도록 이미지의 주소,인덱스,너비,폭을 설정함.
 //void glc2image::Initialize(int sprite)
-//{
+//
 //
 //}
 
@@ -35,14 +36,14 @@ glc2image::glc2image(CSTR filename, const float x, const float y) :inputFilename
 // m_pos는 생략 가능한 듯.
 void glc2image::Draw()
 {
-	g2_Draw2D(m_sprite, nullptr, &m_pos);
+	g2_Draw2D(m_spriteIdx, nullptr, &m_pos);
 }
 
 glc2image::~glc2image()
 {
-	window.DeleteImage(this);
+	m_windowP->DeleteImage(this);
 
-	g2_TextureRelease(m_sprite);
+	g2_TextureRelease(m_spriteIdx);
 }
 
 
@@ -58,11 +59,9 @@ glc2image::~glc2image()
 
 void glc2image::SetImage(int sprite)
 {
-	//m_imageP= fileName;
-	//m_sprite = g2_TextureLoad(m_imageP);
-	m_sprite = sprite;
-	m_width = g2_TextureWidth(m_sprite);
-	m_height = g2_TextureHeight(m_sprite);
+	// 20261105 여기서 에러남.
+	m_width = g2_TextureWidth(m_spriteIdx);	
+	m_height = g2_TextureHeight(m_spriteIdx);
 }
 
 void glc2image::SetAlpha(int alpha)
@@ -88,7 +87,7 @@ void glc2image::SetPosY(const float y)
 
 int glc2image::GetIndex()
 {
-	return m_sprite;
+	return m_spriteIdx;
 }
 
 int glc2image::GetWidth()

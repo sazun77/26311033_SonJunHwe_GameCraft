@@ -2,7 +2,7 @@
 
 #include <vector>
 #include "glc2d.h"
-#include "glc2image.h"
+class glc2image;
 
 enum
 {
@@ -33,20 +33,22 @@ class glc2window
 {
 
 public:
+	glc2window();
+	~glc2window();
+
 	int Render(); // CLEAR.
 	int FrameMove(); // CLEAR.
 	int Keyboard(uint8_t* keyP); // CLEAR.
 	int Mouse(int x, int y, int z, int event); // CLEAR.
 
-	void FrameMove_Update();
 	void FrameMove_Mouse();
 	void FrameMove_Keyboard();
+	virtual void FrameMove_Update();
+	void FrameMove_afterUpdate();
 	//void RenderDetailes();
-	void Initialize(); // CLEAR.
 	void Run(); // CLEAR.
-	void Sleep(int delay=GAMETICK); // CLEAR.
+	//void Sleep(int delay=GAMETICK); // CLEAR.
 	void Close(); // CLEAR.
-	void Destroy(); // CLEAR.
 	
 	void AddImage(glc2image* glc2image);
 	void DeleteImage(glc2image* glc2image);
@@ -61,7 +63,7 @@ public:
 	int GetHeight();// CLEAR.
 
 	
-private:
+protected:
 	HWND m_hWnd{};
 	VEC2 m_pos{};
 	const int m_width{960};
@@ -74,9 +76,7 @@ private:
 	int m_mouseY{};
 	int m_mouseZ{};
 	mouse m_mouseEvent{};
-	//
-	int m_count{};//DEBUG
+	const KEYCODE* m_keyboardP{};
+
 	std::vector< glc2image*> m_images{};
 };
-
-extern glc2window window;

@@ -7,6 +7,8 @@
 
 #define INPUT_NULL -777.7f
 
+class glc2window;
+
 enum
 {
 	FILENAMEMAX = 300,
@@ -17,11 +19,7 @@ enum
 class glc2image
 {
 public:
-	CSTR inputFilename{};
-	const float initX{ INPUT_NULL };
-	const float initY{ INPUT_NULL };
-
-	glc2image(CSTR filename, const float x, const float y);
+	glc2image(glc2window* windowP,CSTR filename, const float x = INPUT_NULL, const float y = INPUT_NULL);
 	//void Initialize(int sprite);
 	void Draw();
 	~glc2image();
@@ -40,11 +38,13 @@ public:
 	float GetPosY();
 
 private:
-	int m_sprite{};
+	int m_spriteIdx{};
 	int m_width{};
 	int m_height{};
 	int m_alpha{VISIBLE};//투명도(밝기) 관련.
 
+
+	glc2window* m_windowP{};
 	VEC2 m_pos{};
 
 	//const char* m_imageP{};
