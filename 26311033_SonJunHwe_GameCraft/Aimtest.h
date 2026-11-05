@@ -15,12 +15,14 @@ public:
 	~Aimtest();
 	void Setup();
 	void FrameMove_Update() override;
-
+	void Event_Rcick();
+	void Event_Lcick();
+	void Event_Nonecick();
 
 private:
-	ULONGLONG m_updateTime{};
+	ULONGLONG m_time{};
 
-	glc2image* image_aim;
-	glc2image* image_target;
+	glc2image* aimpoint;
+	glc2image* hit;
 };
 

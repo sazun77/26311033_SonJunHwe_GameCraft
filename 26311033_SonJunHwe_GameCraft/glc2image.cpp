@@ -74,6 +74,11 @@ void glc2image::SetAlpha(int alpha)
 
 void glc2image::SetPos(const float x, const float y)
 {
+	SetPosX(static_cast<float>(x - m_width / 2));
+	SetPosY(static_cast<float>(y - m_height / 2));
+}
+void glc2image::SetPosByAbsoluteCoordinate(const float x, const float y)
+{
 	SetPosX(x);
 	SetPosY(y);
 }

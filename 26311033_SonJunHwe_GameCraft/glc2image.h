@@ -27,6 +27,7 @@ public:
 
 	void SetAlpha(int alpha);
 	void SetPos(const float x, const float y);
+	void SetPosByAbsoluteCoordinate(const float x, const float y);
 	void SetPosX(const float x);
 	void SetPosY(const float y);
 
@@ -36,7 +37,7 @@ public:
 	float GetPosX();
 	float GetPosY();
 
-private:
+protected:
 	int m_spriteIdx{};
 	int m_width{};
 	int m_height{};

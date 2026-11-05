@@ -132,7 +132,7 @@ void glc2window::FrameMove_Mouse()
 	else
 	{
 		DEBUGLOG( "No click\n");
-		m_mouseEvent = NONE;
+		//m_mouseEvent = NONE;
 	}
 }
 void glc2window::FrameMove_Keyboard()
