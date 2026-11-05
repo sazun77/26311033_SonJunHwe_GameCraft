@@ -24,6 +24,8 @@ int main()
 
 	Aimtest* aimtest = new Aimtest;
 
+	//aimtest->Setup();
+
 	aimtest->Run();
 
 	delete aimtest;

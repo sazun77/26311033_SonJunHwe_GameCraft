@@ -152,7 +152,16 @@ void glc2window::FrameMove_Keyboard()
 void glc2window::Run()
 {
 	DEBUGLOG( "Running Window\n");
-	g2_Run();	// 여기서 명령을 추가로 하는 법을 모르겠음.
+	g2_Run();
+}
+void glc2window::CheckEscape()
+{
+	if (m_keyboardP[ESC])
+	{
+		DEBUGLOG("programend\n");
+
+		Close();
+	}
 }
 //void glc2window::Sleep(int delay)
 //{
@@ -166,6 +175,7 @@ void glc2window::Close()
 void glc2window::AddImage(glc2image* glc2image)
 {
 	m_images.push_back(glc2image);
+	if (true) {}
 }
 
 void glc2window::DeleteImage(glc2image* glc2image)

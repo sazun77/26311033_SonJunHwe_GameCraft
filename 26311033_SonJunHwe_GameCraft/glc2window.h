@@ -1,8 +1,14 @@
 #pragma once
 
 #include <vector>
-#include "glc2d.h"
+#include <Windows.h>
+#include <stdint.h>
+#include <d3dx9.h>
+
 class glc2image;
+typedef D3DXVECTOR2							VEC2;
+typedef	uint8_t								KEYCODE;
+
 
 enum
 {
@@ -48,6 +54,8 @@ public:
 	//void RenderDetailes();
 	void Run(); // CLEAR.
 	//void Sleep(int delay=GAMETICK); // CLEAR.
+
+	void CheckEscape();
 	void Close(); // CLEAR.
 	
 	void AddImage(glc2image* glc2image);

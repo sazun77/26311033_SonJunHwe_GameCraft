@@ -1,7 +1,7 @@
 #include "glc2image.h"
 #include "glc2window.h"
 #include "glc2d.h"
-
+#include "Utility.h"
 #include <iostream>
 #include <string.h>
 
@@ -10,9 +10,17 @@ glc2image::glc2image( glc2window* windowP,CSTR filename, const float x, const fl
 	m_windowP = windowP;
 	m_spriteIdx = g2_TextureLoad(filename);
 
-	SetImage(m_spriteIdx);
+	if (m_spriteIdx == -1)
+	{
+		DEBUGLOG("Failed to load image: " << filename << '\n');
+	}
+	else
+	{
+		DEBUGLOG("Image loaded successfully: " << filename << '\n');
+	}
 
-
+	m_width = g2_TextureWidth(m_spriteIdx);
+	m_height = g2_TextureHeight(m_spriteIdx);
 	if (x != INPUT_NULL)
 	{
 		SetPosX(x);
@@ -22,7 +30,7 @@ glc2image::glc2image( glc2window* windowP,CSTR filename, const float x, const fl
 		SetPosY(y);
 	}
 
-	m_windowP->AddImage(this);
+	windowP->AddImage(this);
 }
 
 // 이후에 활용할 수 있도록 이미지의 주소,인덱스,너비,폭을 설정함.
@@ -57,12 +65,7 @@ glc2image::~glc2image()
 
 
 
-void glc2image::SetImage(int sprite)
-{
-	// 20261105 여기서 에러남.
-	m_width = g2_TextureWidth(m_spriteIdx);	
-	m_height = g2_TextureHeight(m_spriteIdx);
-}
+
 
 void glc2image::SetAlpha(int alpha)
 {

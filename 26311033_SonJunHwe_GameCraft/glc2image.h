@@ -25,7 +25,6 @@ public:
 	~glc2image();
 	//void Release();
 
-	void SetImage(int sprite);
 	void SetAlpha(int alpha);
 	void SetPos(const float x, const float y);
 	void SetPosX(const float x);
