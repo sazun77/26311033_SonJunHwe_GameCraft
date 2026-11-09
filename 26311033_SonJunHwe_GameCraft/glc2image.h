@@ -53,7 +53,6 @@ protected:
 	float m_radianAngle{ 0.0F };// 라디안 각도 0.0F
 	unsigned int m_argb{ 0xFFFFFFFF };		// RGB(0xAARRGGBB)
 	bool m_useSetColor{ false };
-	
 
 	int m_width{};
 	int m_height{};
