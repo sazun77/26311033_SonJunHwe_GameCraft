@@ -12,8 +12,11 @@ class glc2window;
 enum
 {
 	FILENAMEMAX = 300,
+	GLOW_ON = 1,
+	GLOW_OFF = 0,
 	VISIBLE = 1,
-	INVISIBLE = 0,
+	INVISIBLE = 1,
+
 };
 
 class glc2image
@@ -25,27 +28,38 @@ public:
 	~glc2image();
 	//void Release();
 
-	void SetAlpha(int alpha);
+	void Setglow(int alpha);
 	void SetPos(const float x, const float y);
 	void SetPosByAbsoluteCoordinate(const float x, const float y);
 	void SetPosX(const float x);
 	void SetPosY(const float y);
-
+	void SetVisible(bool isVisible);
+	void SetScale(float diameter);
+	void SetScale(float x,float y);
 	int GetIndex();
 	int GetWidth();
 	int GetHeight();
 	float GetPosX();
 	float GetPosY();
+	int GetGlow();
+	bool GetIsVisible(); 
 
 protected:
 	int m_spriteIdx{};
+	//RECT source{};
+	VEC2 m_pos{};
+	VEC2 m_scale{ 1,1 };
+	//VEC2 m_rotationMid{};		// 회전 중심 nullptr
+	float m_radianAngle{ 0.0F };// 라디안 각도 0.0F
+	unsigned int m_argb{ 0xFFFFFFFF };		// RGB(0xAARRGGBB)
+	bool m_useSetColor{ false };
+	
+
 	int m_width{};
 	int m_height{};
-	int m_alpha{VISIBLE};//투명도(밝기) 관련.
-
+	int m_glow{ GLOW_OFF };//밝기 관련, 투명도와는 관계 없는 듯. 
 
 	glc2window* m_windowP{};
-	VEC2 m_pos{};
 
 	//const char* m_imageP{};
 };

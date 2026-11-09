@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
 #include <time.h>
+#include <vector>
 #include "glc2d.h"
 
 #include "glc2window.h"
@@ -8,31 +9,30 @@
 #include "glc2sound.h"
 #include "Utility.h"
 
-// 이걸 바꾸는 식으로 해야 함...
-#include "Aimtest.h"
-extern Aimtest window{};
+extern glc2window* selfP{nullptr};
 
 // RenderDetailes은 일종의 update(), main()의 역할인 듯?
 int AppRender()
 {
-	return window.Render();
+	return glc2window::Render();
 }
 int AppFrameMove()
 {
-	return window.FrameMove();
+	return glc2window::FrameMove();
 }
 int AppKeyboard(uint8_t* keyP)
 {
-	return window.Keyboard(keyP);
+	return glc2window::Keyboard(keyP);
 }
 int AppMouse(int x, int y, int z, int event)
 {
-	return window.Mouse(x,y,z,event);
+	return glc2window::Mouse(x,y,z,event);
 }
 
 //
 glc2window::glc2window()
 {
+	selfP = this;
 	// SDK 초기화
 	DEBUGLOG("Initialliseing SDK\n");
 	g2_InitSdk();
@@ -61,26 +61,41 @@ glc2window::glc2window()
 }
 glc2window::~glc2window()
 {
+	DEBUGLOG("deleting images\n");
+	while (!m_images.empty())
+	{
+		delete m_images.back();
+	}
+	DEBUGLOG("deleting sounds\n");
+	while (!m_sounds.empty())
+	{
+		delete m_sounds.back();
+	}
+
 	DEBUGLOG( "Desroying Window\n");
 	g2_DestroyWin();
 }
 // 위에 있는 것들의 파츠 같은 놈들?
 int glc2window::Render()
 {
-	for (auto& image : m_images)
+	if(selfP)
 	{
-		image->Draw();
+		for (auto& image : selfP->m_images)
+		{
+			image->Draw();
+		}
 	}
 
 	return SUCCESS;
 }
 int glc2window::FrameMove()
 {
-	FrameMove_Mouse();
-
-	FrameMove_Keyboard();
-
-	this->FrameMove_Update();
+	if (selfP)
+	{
+		selfP->FrameMove_Mouse();
+		selfP->FrameMove_Keyboard();
+		selfP->FrameMove_Update();
+	}
 
 	return SUCCESS;
 }
@@ -175,7 +190,6 @@ void glc2window::Close()
 void glc2window::AddImage(glc2image* glc2image)
 {
 	m_images.push_back(glc2image);
-	if (true) {}
 }
 
 void glc2window::DeleteImage(glc2image* glc2image)
@@ -185,6 +199,21 @@ void glc2window::DeleteImage(glc2image* glc2image)
 	if (targetLocation != m_images.end())
 	{
 		m_images.erase(targetLocation);
+	}
+}
+
+void glc2window::AddSound(glc2sound* glc2sound)
+{
+	m_sounds.push_back(glc2sound);
+}
+
+void glc2window::DeleteSound(glc2sound* glc2sound)
+{
+	auto targetLocation = find(m_sounds.begin(), m_sounds.end(), glc2sound);
+
+	if (targetLocation != m_sounds.end())
+	{
+		m_sounds.erase(targetLocation);
 	}
 }
 

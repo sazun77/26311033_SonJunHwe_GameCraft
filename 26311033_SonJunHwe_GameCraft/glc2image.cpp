@@ -44,7 +44,7 @@ glc2image::glc2image( glc2window* windowP,CSTR filename, const float x, const fl
 // m_pos는 생략 가능한 듯.
 void glc2image::Draw()
 {
-	g2_Draw2D(m_spriteIdx, nullptr, &m_pos);
+	g2_Draw2D(m_spriteIdx, nullptr, &m_pos, &m_scale, nullptr, m_radianAngle,m_argb,m_useSetColor);
 }
 
 glc2image::~glc2image()
@@ -67,9 +67,10 @@ glc2image::~glc2image()
 
 
 
-void glc2image::SetAlpha(int alpha)
+void glc2image::Setglow(int alpha)
 {
-	g2_DrawAlphaOption(alpha);
+	m_glow = alpha;
+	g2_DrawAlphaOption(m_glow);
 }
 
 void glc2image::SetPos(const float x, const float y)
@@ -93,6 +94,34 @@ void glc2image::SetPosY(const float y)
 	m_pos.y = y;
 }
 
+void glc2image::SetVisible(bool isVisible)
+{
+	unsigned int alpha;
+
+	if (isVisible)
+	{
+		alpha = 0xFF;
+	}
+	else
+	{
+		alpha = 0x00;
+	}
+
+	m_argb = (m_argb & 0x00FFFFFF) | (alpha << 24);
+}
+
+void glc2image::SetScale(float diameter)
+{
+	m_scale.x *= diameter;
+	m_scale.y *= diameter;
+}
+
+void glc2image::SetScale(float x, float y)
+{
+	m_scale.x = x;
+	m_scale.y = y;
+}
+
 int glc2image::GetIndex()
 {
 	return m_spriteIdx;
@@ -100,21 +129,34 @@ int glc2image::GetIndex()
 
 int glc2image::GetWidth()
 {
-	return m_width;
+	return m_width*m_scale.x	;
 }
 
 int glc2image::GetHeight()
 {
-	return m_height;
+	return m_height* m_scale.y;
 }
 
 float glc2image::GetPosX()
 {
-	return m_pos.x;
+	return m_pos.x + m_width / 2;
 }
 
 float glc2image::GetPosY()
 {
-	return m_pos.y;
+	return m_pos.y + m_height / 2;
+}
+
+int glc2image::GetGlow()
+{
+	return m_glow;
+}
+
+bool glc2image::GetIsVisible()
+{
+	unsigned int alpha = (m_argb >> 24) & 0xFF;
+
+
+	return alpha;
 }
 

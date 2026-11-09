@@ -1,5 +1,3 @@
-
-
 #include "Utility.h"
 #include <Windows.h>
 void SetConsole()

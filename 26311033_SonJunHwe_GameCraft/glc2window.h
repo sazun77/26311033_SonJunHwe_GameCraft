@@ -6,12 +6,15 @@
 #include <d3dx9.h>
 
 class glc2image;
+class glc2sound;
 typedef D3DXVECTOR2							VEC2;
 typedef	uint8_t								KEYCODE;
 
 
 enum
 {
+	ESC = 27,
+
 	FAILED = 0,
 	SUCCESS = 1,
 
@@ -42,15 +45,15 @@ public:
 	glc2window();
 	~glc2window();
 
-	int Render(); // CLEAR.
-	int FrameMove(); // CLEAR.
-	int Keyboard(uint8_t* keyP); // CLEAR.
-	int Mouse(int x, int y, int z, int event); // CLEAR.
+	static int Render(); // CLEAR.
+	static int FrameMove(); // CLEAR.
+	static int Keyboard(uint8_t* keyP); // CLEAR.
+	static int Mouse(int x, int y, int z, int event); // CLEAR.
 
-	void FrameMove_Mouse();
-	void FrameMove_Keyboard();
+	virtual void FrameMove_Mouse();
+	virtual void FrameMove_Keyboard();
 	virtual void FrameMove_Update();
-	void FrameMove_afterUpdate();
+	virtual void FrameMove_afterUpdate();
 	//void RenderDetailes();
 	void Run(); // CLEAR.
 	//void Sleep(int delay=GAMETICK); // CLEAR.
@@ -60,6 +63,8 @@ public:
 	
 	void AddImage(glc2image* glc2image);
 	void DeleteImage(glc2image* glc2image);
+	void AddSound(glc2sound* glc2sound);
+	void DeleteSound(glc2sound* glc2sound);
 
 	void SetPos(float x, float y);// CLEAR.
 	void SetPosX(float x);// CLEAR.
@@ -76,7 +81,7 @@ protected:
 	VEC2 m_pos{};
 	const int m_width{960};
 	const int m_height{ 540 };
-	const char* m_name{ "PressSpace" };
+	const char* m_name{ "window" };
 
 	const int m_color{ 0x77777777 };
 	//mouse
@@ -87,4 +92,5 @@ protected:
 	const KEYCODE* m_keyboardP{};
 
 	std::vector< glc2image*> m_images{};
+	std::vector< glc2sound*> m_sounds{};
 };
