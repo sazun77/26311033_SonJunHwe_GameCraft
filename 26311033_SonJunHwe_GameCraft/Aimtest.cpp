@@ -5,28 +5,20 @@
 #include "glc2sound.h"
 
 #include <iostream>
-
-int test{};
-
-Aimtest::Aimtest()
-{
-
-}
+#include <random>
 
 void Aimtest::FrameMove_Update()
 {
+	// 실험용 코드들.
 	//m_mouseX = 100;
 	//m_mouseY = 100;
-	if (m_time / 500 != test)
-	{
 
-	}
-	
+	// 조준점 위치 업데이트
 	image_aimpoint->SetPos(static_cast<float>(m_mouseX), static_cast<float>(m_mouseY));		
 	image_reloading->SetPos(static_cast<float>(m_mouseX + image_aimpoint->GetWidth()/3*2), static_cast<float>(m_mouseY+image_aimpoint->GetHeight()/3*2 ));
 	//image_reloading->SetPosByAbsoluteCoordinate(static_cast<float>(m_mouseX-image_aimpoint->GetWidth()/2), static_cast<float>(m_mouseY- image_aimpoint->GetHeight() / 2));		
 	
-
+	// 발사 후, 관련 후속 처리.
 	if (0 != m_lastFireTime)
 	{
 		if (COOLTIME_FIRE <= m_time - m_lastFireTime)
@@ -95,6 +87,7 @@ void Aimtest::FrameMove_Mouse()
 			{
 				if (m_time - m_lastFireTime >= COOLTIME_FIRE)
 				{
+					// 이미지 처리.
 					image_gunfire->SetPos(m_mouseX, m_mouseY);
 					image_gunfire->SetVisible(true);
 					image_gunfire->Setglow(GLOW_ON);

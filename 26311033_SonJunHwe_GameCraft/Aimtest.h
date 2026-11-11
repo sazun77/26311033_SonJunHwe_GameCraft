@@ -1,7 +1,7 @@
 #pragma once
 #include "glc2window.h"
 #include <vector>
-
+#include <random>
 class glc2image;
 class glc2sound;
 enum COMMAND
@@ -14,7 +14,7 @@ enum COMMAND
 class Aimtest : public glc2window
 {
 public:
-	Aimtest();
+	Aimtest(): m_randomEngine(std::random_device{}()){}
 	~Aimtest();
 	void Setup();
 	void FrameMove_Update() override;
@@ -24,6 +24,8 @@ public:
 	void Event_Lcick();
 	void Event_Nonecick();
 
+public:
+	std::mt19937 m_randomEngine;
 private:
 	ULONGLONG m_time{0};
 	ULONGLONG m_lastMobSpawn{0};
