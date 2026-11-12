@@ -3,6 +3,7 @@
 #include "glc2window.h"
 #include "glc2image.h"
 #include "glc2sound.h"
+#include "target.h"
 
 #include <iostream>
 #include <random>
@@ -14,10 +15,16 @@ void Aimtest::FrameMove_Update()
 	//m_mouseY = 100;
 
 	// 조준점 위치 업데이트
-	image_aimpoint->SetPos(static_cast<float>(m_mouseX), static_cast<float>(m_mouseY));		
-	image_reloading->SetPos(static_cast<float>(m_mouseX + image_aimpoint->GetWidth()/3*2), static_cast<float>(m_mouseY+image_aimpoint->GetHeight()/3*2 ));
+	image_aimpoint->SetPos(static_cast<float>(m_mouseX), static_cast<float>(m_mouseY));
+	image_reloading->SetPos(static_cast<float>(m_mouseX + image_aimpoint->GetWidth() / 3 * 2), static_cast<float>(m_mouseY + image_aimpoint->GetHeight() / 3 * 2));
 	//image_reloading->SetPosByAbsoluteCoordinate(static_cast<float>(m_mouseX-image_aimpoint->GetWidth()/2), static_cast<float>(m_mouseY- image_aimpoint->GetHeight() / 2));		
 	
+	//적 위치 재설정
+	std::uniform_int_distribution<int> xLocation(0, this->GetWidth() - enemy->GetWidth());
+	enemy->SetPosX(static_cast<float>(xLocation(m_randomEngine)));
+	std::uniform_int_distribution<int> yLocation(0, this->GetHeight() - enemy->GetHeight());
+	enemy->SetPosY(static_cast<float>(yLocation(m_randomEngine)));
+
 	// 발사 후, 관련 후속 처리.
 	if (0 != m_lastFireTime)
 	{
@@ -30,7 +37,7 @@ void Aimtest::FrameMove_Update()
 		{
 			image_gunfire->SetVisible(false);
 		}
-		else if (COOLTIME_FIRE/3 <= m_time - m_lastFireTime && image_aimpoint->GetIsVisible() == true)
+		else if (COOLTIME_FIRE / 3 <= m_time - m_lastFireTime && image_aimpoint->GetIsVisible() == true)
 		{
 			image_gunfire->Setglow(GLOW_OFF);
 
@@ -68,11 +75,11 @@ void Aimtest::FrameMove_Mouse()
 	}
 	else
 	{
-	//	DEBUGLOG("No click\n");
+		//	DEBUGLOG("No click\n");
 		currentMouse = NONE;
 	}
 	// 누르면 발동, 홀드 여부 상관 없이.
-	if (currentMouse != NONE) 
+	if (currentMouse != NONE)
 	{
 		// '클릭 시' 발동일 경우 이전 명령과 다르기만 하면 됨. 
 		if (m_mouseEvent == currentMouse)
@@ -91,9 +98,9 @@ void Aimtest::FrameMove_Mouse()
 					image_gunfire->SetPos(m_mouseX, m_mouseY);
 					image_gunfire->SetVisible(true);
 					image_gunfire->Setglow(GLOW_ON);
-					
+
 					image_aimpoint->Setglow(GLOW_ON);
-					
+
 					image_reloading->SetVisible(true);
 
 					sound_gunfire->Play();
@@ -123,6 +130,13 @@ void Aimtest::FrameMove_Keyboard()
 
 	CheckEscape();
 }
+Aimtest::Aimtest()
+{
+	std::random_device rd;
+	m_randomEngine.seed(rd());
+
+	Setup();
+}
 Aimtest::~Aimtest()
 {
 
@@ -134,10 +148,11 @@ void Aimtest::Setup()
 	image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false);
 	image_reloading = new glc2image(this, "Resource/Images/reloading.png", 100, 100); image_reloading->SetVisible(false); image_reloading->SetScale(0.3f);
 
-	sound_gunfire = new glc2sound(this,"Resource/Sounds/gunfire.wav");
+	sound_gunfire = new glc2sound(this, "Resource/Sounds/gunfire.wav");
 	sound_hit = new glc2sound(this, "Resource/Sounds/hit.wav");
 	sound_jam = new glc2sound(this, "Resource/Sounds/jam.wav");
-	//sound_bgm = new glc2sound(this, "Resource/Sounds/bgm.");
-}
+	//sound_bgm = new glc2sound(this, "Resource/Sounds/bgm.wav");\
 
+	enemy = new target(this, "Resource/Images/target.png");
+}
 

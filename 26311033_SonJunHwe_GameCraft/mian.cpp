@@ -24,7 +24,7 @@ int main()
 
 	Aimtest aimtest{};
 
-	aimtest.Setup();
+	//aimtest.Setup();
 
 	//aimtest->Setup();
 	

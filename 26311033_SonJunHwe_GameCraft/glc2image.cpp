@@ -78,6 +78,11 @@ void glc2image::SetPos(const float x, const float y)
 	SetPosX(static_cast<float>(x - m_width / 2));
 	SetPosY(static_cast<float>(y - m_height / 2));
 }
+void glc2image::SetPos(const int x, const int y)
+{
+	SetPosX(static_cast<float>(x - m_width / 2));
+	SetPosY(static_cast<float>(y - m_height / 2));
+}
 void glc2image::SetPosByAbsoluteCoordinate(const float x, const float y)
 {
 	SetPosX(x);
@@ -129,12 +134,12 @@ int glc2image::GetIndex()
 
 int glc2image::GetWidth()
 {
-	return m_width*m_scale.x	;
+	return  m_width * static_cast<int>(m_scale.x);
 }
 
 int glc2image::GetHeight()
 {
-	return m_height* m_scale.y;
+	return m_height * static_cast<int>(m_scale.y);
 }
 
 float glc2image::GetPosX()

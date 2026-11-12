@@ -30,6 +30,7 @@ public:
 
 	void Setglow(int alpha);
 	void SetPos(const float x, const float y);
+	void SetPos(const int x, const int y);
 	void SetPosByAbsoluteCoordinate(const float x, const float y);
 	void SetPosX(const float x);
 	void SetPosY(const float y);

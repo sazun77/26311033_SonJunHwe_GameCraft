@@ -1,9 +1,11 @@
 #pragma once
 #include "glc2window.h"
+
 #include <vector>
 #include <random>
 class glc2image;
 class glc2sound;
+class target;
 enum COMMAND
 {
 	TIME_NULL = 0,
@@ -14,15 +16,13 @@ enum COMMAND
 class Aimtest : public glc2window
 {
 public:
-	Aimtest(): m_randomEngine(std::random_device{}()){}
+	Aimtest();
 	~Aimtest();
 	void Setup();
 	void FrameMove_Update() override;
 	void FrameMove_Mouse() override;
 	void FrameMove_Keyboard() override;
-	void Event_Rcick();
-	void Event_Lcick();
-	void Event_Nonecick();
+
 
 public:
 	std::mt19937 m_randomEngine;
@@ -39,4 +39,6 @@ private:
 	glc2sound* sound_hit;
 	glc2sound* sound_jam;
 	glc2sound* sound_bgm;
+
+	target* enemy;
 };
