@@ -152,6 +152,16 @@ float glc2image::GetPosY()
 	return m_pos.y + m_height / 2;
 }
 
+float glc2image::GetPosMidX()
+{
+	return 0.0f;
+}
+
+float glc2image::GetPosMidY()
+{
+	return 0.0f;
+}
+
 int glc2image::GetGlow()
 {
 	return m_glow;

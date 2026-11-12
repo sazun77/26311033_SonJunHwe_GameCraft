@@ -26,6 +26,8 @@ public:
 
 public:
 	std::mt19937 m_randomEngine;
+	long long m_score{};
+
 private:
 	ULONGLONG m_time{0};
 	ULONGLONG m_lastMobSpawn{0};

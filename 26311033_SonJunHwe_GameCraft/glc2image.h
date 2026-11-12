@@ -42,6 +42,8 @@ public:
 	int GetHeight();
 	float GetPosX();
 	float GetPosY();
+	float GetPosMidX();
+	float GetPosMidY();
 	int GetGlow();
 	bool GetIsVisible(); 
 

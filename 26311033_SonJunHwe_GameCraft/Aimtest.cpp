@@ -105,6 +105,19 @@ void Aimtest::FrameMove_Mouse()
 
 					sound_gunfire->Play();
 
+
+					unsigned long long distenceX = (enemy->GetPosX() - m_mouseX);
+					unsigned long long distenceY = (enemy->GetPosY() - m_mouseY);
+
+
+
+					unsigned long long scoreX ;
+					unsigned long long scoreY ;
+
+
+
+					m_score += scoreX + scoreY;
+
 					m_lastFireTime = m_time;
 				}
 				else
