@@ -74,6 +74,8 @@ public:
 	float GetPosY();// CLEAR.
 	int GetWidth();// CLEAR.
 	int GetHeight();// CLEAR.
+	int GetMouseX();
+	int GetMouseY();
 
 	
 protected:

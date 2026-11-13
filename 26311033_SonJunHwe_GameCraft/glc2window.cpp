@@ -248,3 +248,13 @@ int glc2window::GetHeight()
 	return m_height;
 }
 
+int glc2window::GetMouseX()
+{
+	return m_mouseX;
+}
+
+int glc2window::GetMouseY()
+{
+	return m_mouseY;
+}
+
