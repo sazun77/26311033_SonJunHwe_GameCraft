@@ -39,6 +39,9 @@
     <ClCompile Include="target.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="glc2text.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="myheader.h">
@@ -60,6 +63,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="target.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="glc2text.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

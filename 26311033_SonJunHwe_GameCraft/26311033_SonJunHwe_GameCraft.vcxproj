@@ -130,6 +130,7 @@
     <ClCompile Include="Aimtest.cpp" />
     <ClCompile Include="glc2image.cpp" />
     <ClCompile Include="glc2sound.cpp" />
+    <ClCompile Include="glc2text.cpp" />
     <ClCompile Include="glc2window.cpp" />
     <ClCompile Include="mian.cpp" />
     <ClCompile Include="target.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Aimtest.h" />
     <ClInclude Include="glc2image.h" />
     <ClInclude Include="glc2sound.h" />
+    <ClInclude Include="glc2text.h" />
     <ClInclude Include="glc2window.h" />
     <ClInclude Include="myheader.h" />
     <ClInclude Include="target.h" />

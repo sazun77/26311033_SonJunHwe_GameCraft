@@ -76,7 +76,7 @@ public:
 	int GetHeight();// CLEAR.
 	int GetMouseX();
 	int GetMouseY();
-
+	int GetFont();
 	
 protected:
 	HWND m_hWnd{};
@@ -95,4 +95,6 @@ protected:
 
 	std::vector< glc2image*> m_images{};
 	std::vector< glc2sound*> m_sounds{};
+
+	int m_font=-1;
 };

@@ -8,6 +8,7 @@
 #include "glc2image.h"
 #include "glc2sound.h"
 #include "Utility.h"
+#include "glc2text.h"
 
 extern glc2window* selfP{nullptr};
 
@@ -75,6 +76,7 @@ glc2window::~glc2window()
 	DEBUGLOG( "Desroying Window\n");
 	g2_DestroyWin();
 }
+
 // 위에 있는 것들의 파츠 같은 놈들?
 int glc2window::Render()
 {
@@ -83,6 +85,14 @@ int glc2window::Render()
 		for (auto& image : selfP->m_images)
 		{
 			image->Draw();
+		}
+
+		if (selfP->m_font != -1)
+		{
+			for (auto& image : selfP->m_images)
+			{
+				image->Draw();
+			}
 		}
 	}
 
@@ -256,5 +266,10 @@ int glc2window::GetMouseX()
 int glc2window::GetMouseY()
 {
 	return m_mouseY;
+}
+
+int glc2window::GetFont()
+{
+	return m_font;
 }
 

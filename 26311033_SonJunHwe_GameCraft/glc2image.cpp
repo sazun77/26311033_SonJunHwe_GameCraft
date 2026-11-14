@@ -69,21 +69,21 @@ glc2image::~glc2image()
 
 void glc2image::Setglow(int alpha)
 {
-	m_glow = alpha;
-	g2_DrawAlphaOption(m_glow);
+	//m_glow = alpha;
+	//g2_DrawAlphaOption(m_glow);
 }
 
 void glc2image::SetPos(const float x, const float y)
 {
-	SetPosX(static_cast<float>(x - m_width / 2));
-	SetPosY(static_cast<float>(y - m_height / 2));
+	SetPosX(static_cast<float>(x - GetWidth() / 2));
+	SetPosY(static_cast<float>(y - GetHeight() / 2));
 }
 void glc2image::SetPos(const int x, const int y)
 {
-	SetPosX(static_cast<float>(x - m_width / 2));
-	SetPosY(static_cast<float>(y - m_height / 2));
+	SetPosX(static_cast<float>(x - GetWidth() / 2));
+	SetPosY(static_cast<float>(y - GetHeight() / 2));
 }
-void glc2image::SetPosByAbsoluteCoordinate(const float x, const float y)
+void glc2image::SetPosByLT(const float x, const float y)
 {
 	SetPosX(x);
 	SetPosY(y);
@@ -134,12 +134,12 @@ int glc2image::GetIndex()
 
 int glc2image::GetWidth()
 {
-	return  m_width * static_cast<int>(m_scale.x);
+	return  static_cast<int>(m_width * m_scale.x);
 }
 
 int glc2image::GetHeight()
 {
-	return m_height * static_cast<int>(m_scale.y);
+	return static_cast<int>(m_height * m_scale.y);
 }
 
 float glc2image::GetPosX()
@@ -154,12 +154,12 @@ float glc2image::GetPosY()
 
 float glc2image::GetPosMidX()
 {
-	return m_pos.x + m_width / 2;
+	return m_pos.x + GetWidth() / 2;
 }
 
 float glc2image::GetPosMidY()
 {
-	return m_pos.y + m_height / 2;
+	return m_pos.y + GetHeight() / 2;
 }
 
 int glc2image::GetGlow()

@@ -36,11 +36,12 @@ private:
 public:
 	std::mt19937 m_randomEngine;
 	score m_score{};
-	score m_perfectCutline{ 90 };
+	score m_perfectCutline{ 99 };
 protected:
 	ULONGLONG m_time{0};
 	ULONGLONG m_lastFireTime{0};
 
+	target* m_target;
 	glc2image* image_aimpoint;
 	glc2image* image_gunfire;
 	glc2image* image_reloading;
@@ -50,5 +51,5 @@ protected:
 	glc2sound* sound_jam;
 	glc2sound* sound_bgm;
 
-	target* m_target;
+
 };

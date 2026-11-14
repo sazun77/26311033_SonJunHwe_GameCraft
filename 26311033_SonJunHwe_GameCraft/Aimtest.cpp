@@ -22,9 +22,10 @@ Aimtest::~Aimtest()
 
 }
 void Aimtest::Setup()
-{
-	image_aimpoint = new glc2image(this, "Resource/Images/aimpoint.png");
-	image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false);
+{	
+	m_target = new target(m_randomEngine,this, "Resource/Images/target.png"); m_target->SetScale(0.2f);
+	image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false); image_gunfire->SetScale(0.6f);
+	image_aimpoint = new glc2image(this, "Resource/Images/aimpoint.png"); image_aimpoint->SetScale(0.3f);
 	image_reloading = new glc2image(this, "Resource/Images/reloading.png", 100, 100); image_reloading->SetVisible(false); image_reloading->SetScale(0.3f);
 
 	sound_gunfire = new glc2sound(this, "Resource/Sounds/gunfire.wav");
@@ -32,7 +33,7 @@ void Aimtest::Setup()
 	sound_jam = new glc2sound(this, "Resource/Sounds/jam.wav");
 	//sound_bgm = new glc2sound(this, "Resource/Sounds/bgm.wav");\
 
-	m_target = new target(m_randomEngine,this, "Resource/Images/target.png"); m_target->SetScale(0.3f);
+	m_font = g2_FontCreate("Consolas", 20);
 }
 void Aimtest::FrameMove_Update()
 {
@@ -41,10 +42,11 @@ void Aimtest::FrameMove_Update()
 	//m_mouseY = 100;
 
 	// 조준점 위치 업데이트
-	image_aimpoint->SetPos(static_cast<float>(m_mouseX), static_cast<float>(m_mouseY));
-	image_reloading->SetPos(static_cast<float>(m_mouseX + image_aimpoint->GetWidth() / 3 * 2), static_cast<float>(m_mouseY + image_aimpoint->GetHeight() / 3 * 2));
+	image_aimpoint->SetPos(m_mouseX, m_mouseY);
+	image_reloading->SetPosByLT(image_aimpoint->GetPosX(), image_aimpoint->GetPosY());
+	//image_reloading->SetPosByLT(image_aimpoint->GetPosX()+ image_aimpoint->GetWidth(), image_aimpoint->GetPosY()+ image_aimpoint->GetHeight());
 	//image_reloading->SetPosByAbsoluteCoordinate(static_cast<float>(m_mouseX-image_aimpoint->GetWidth()/2), static_cast<float>(m_mouseY- image_aimpoint->GetHeight() / 2));		
-	
+	//DEBUGLOG(m_mouseX << '\n' << m_mouseY << '\n');
 
 	// 발사 후, 관련 후속 처리.
 	if (0 != m_lastFireTime)
@@ -52,8 +54,9 @@ void Aimtest::FrameMove_Update()
 		if (COOLTIME_FIRE <= m_time - m_lastFireTime)
 		{
 			image_reloading->SetVisible(false);
+			image_aimpoint->SetVisible(true);
 			
-			m_target->LocationReset();
+			//m_target->LocationReset();
 
 			m_lastFireTime = 0;
 		}
@@ -170,14 +173,16 @@ void Aimtest::LclickEvent()
 	image_aimpoint->Setglow(GLOW_ON);
 
 	image_reloading->SetVisible(true);
+	image_aimpoint->SetVisible(false);
 
 	sound_gunfire->Play();
 }
 void Aimtest::ScoreCalculate()
 {
-	score maxScore = static_cast<score>(m_target->GetHeight() + m_target->GetWidth()) / 2; maxScore *= maxScore;
-	score distX = static_cast<score>(GetMouseX() - m_target->GetPosMidX()); distX *= distX;
-	score distY = static_cast<score>(GetMouseY() - m_target->GetPosMidY()); distY *= distY;
+	score maxScore = static_cast<score>(m_target->GetHeight() + m_target->GetWidth()) / 2;
+	maxScore *= maxScore;
+	score distX = static_cast<score>(m_target->GetPosMidX() -GetMouseX() ); distX *= distX;
+	score distY = static_cast<score>(m_target->GetPosMidY()-GetMouseY()); distY *= distY;
 
 	// 점수를 올릴 수 있는 거리인가?
 	if (distX + distY <maxScore)
