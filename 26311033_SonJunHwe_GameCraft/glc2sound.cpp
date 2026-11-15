@@ -30,6 +30,10 @@ glc2sound::~glc2sound()
 // 家府 犁积, true甫 持栏搁 风橇.
 void glc2sound::Play(const bool doLoop)
 {
+	if (!this)
+	{
+		return;
+	}
 	if (g2_SoundIsPlaying(m_idx))
 	{
 		g2_SoundReset(m_idx);

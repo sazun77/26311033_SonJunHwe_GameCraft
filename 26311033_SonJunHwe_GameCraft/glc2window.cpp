@@ -89,11 +89,12 @@ int glc2window::Render()
 
 		if (selfP->m_font != -1)
 		{
-			for (auto& image : selfP->m_images)
+			for (auto& text : selfP->m_texts)
 			{
-				image->Draw();
+				text->Renderglc2text();
 			}
 		}
+		else { DEBUGLOG("No font\n";) }
 	}
 
 	return SUCCESS;
@@ -212,6 +213,21 @@ void glc2window::DeleteImage(glc2image* glc2image)
 	}
 }
 
+void glc2window::AddText(glc2text* glc2text)
+{
+	m_texts.push_back(glc2text);
+}
+
+void glc2window::DeleteText(glc2text* glc2text)
+{
+	auto targetLocation = find(m_texts.begin(), m_texts.end(), glc2text);
+
+	if (targetLocation != m_texts.end())
+	{
+		m_texts.erase(targetLocation);
+	}
+}
+
 void glc2window::AddSound(glc2sound* glc2sound)
 {
 	m_sounds.push_back(glc2sound);
@@ -271,5 +287,10 @@ int glc2window::GetMouseY()
 int glc2window::GetFont()
 {
 	return m_font;
+}
+
+int glc2window::GetFontSize()
+{
+	return m_fontSize;
 }
 

@@ -133,6 +133,7 @@
     <ClCompile Include="glc2text.cpp" />
     <ClCompile Include="glc2window.cpp" />
     <ClCompile Include="mian.cpp" />
+    <ClCompile Include="ScoreText.cpp" />
     <ClCompile Include="target.cpp" />
     <ClCompile Include="Utility.cpp" />
   </ItemGroup>
@@ -143,6 +144,7 @@
     <ClInclude Include="glc2text.h" />
     <ClInclude Include="glc2window.h" />
     <ClInclude Include="myheader.h" />
+    <ClInclude Include="ScoreText.h" />
     <ClInclude Include="target.h" />
     <ClInclude Include="Utility.h" />
   </ItemGroup>

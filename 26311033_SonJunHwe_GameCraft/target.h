@@ -14,15 +14,9 @@ private:
 	ULONGLONG m_lifeSpan{ 1000 };
 public:
 	using glc2image::glc2image;
-	
 	target(std::mt19937& m_randomEngine, glc2window* windowP, CSTR filename, const float x = INPUT_NULL, const float y = INPUT_NULL);
 	
-	void Update();
-
-
+	void Updatetarget();
 	void LocationReset();
-
-
-
 };
 

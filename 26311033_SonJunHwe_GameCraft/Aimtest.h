@@ -21,9 +21,8 @@ public:
 	Aimtest();
 	~Aimtest();
 
+	score GetScore();
 private:
-
-	void Setup();
 	void FrameMove_Update() override;
 	void FrameMove_Mouse() override;
 	void FrameMove_Keyboard() override;
@@ -45,6 +44,8 @@ protected:
 	glc2image* image_aimpoint;
 	glc2image* image_gunfire;
 	glc2image* image_reloading;
+
+	glc2text* text_score;
 
 	glc2sound* sound_gunfire;
 	glc2sound* sound_hit;

@@ -2,10 +2,13 @@
 #include "Utility.h"
 #include "glc2window.h"
 #include "glc2image.h"
+#include "glc2text.h"
 #include "glc2sound.h"
-#include "target.h"
 #include "glc2d.h"
 
+#include "target.h"
+
+#include "ScoreText.h"
 
 #include <iostream>
 #include <random>
@@ -14,27 +17,31 @@ Aimtest::Aimtest()
 {
 	std::random_device rd;
 	m_randomEngine.seed(rd());
+	
+	m_font = g2_FontCreate("Consolas", m_fontSize);
+	
+	
+	text_score = new ScoreText(this);
 
-	Setup();
-}
-Aimtest::~Aimtest()
-{
-
-}
-void Aimtest::Setup()
-{	
 	m_target = new target(m_randomEngine,this, "Resource/Images/target.png"); m_target->SetScale(0.2f);
 	image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false); image_gunfire->SetScale(0.6f);
 	image_aimpoint = new glc2image(this, "Resource/Images/aimpoint.png"); image_aimpoint->SetScale(0.3f);
 	image_reloading = new glc2image(this, "Resource/Images/reloading.png", 100, 100); image_reloading->SetVisible(false); image_reloading->SetScale(0.3f);
 
-	sound_gunfire = new glc2sound(this, "Resource/Sounds/gunfire.wav");
+
+	//sound_gunfire = new glc2sound(this, "Resource/Sounds/gunfire.wav");
 	sound_hit = new glc2sound(this, "Resource/Sounds/hit.wav");
 	sound_jam = new glc2sound(this, "Resource/Sounds/jam.wav");
-	//sound_bgm = new glc2sound(this, "Resource/Sounds/bgm.wav");\
-
-	m_font = g2_FontCreate("Consolas", 20);
 }
+Aimtest::~Aimtest()
+{
+
+}
+score Aimtest::GetScore()
+{
+	return m_score;
+}
+
 void Aimtest::FrameMove_Update()
 {
 	// 실험용 코드들.
@@ -56,7 +63,7 @@ void Aimtest::FrameMove_Update()
 			image_reloading->SetVisible(false);
 			image_aimpoint->SetVisible(true);
 			
-			//m_target->LocationReset();
+			m_target->LocationReset();
 
 			m_lastFireTime = 0;
 		}
@@ -73,7 +80,10 @@ void Aimtest::FrameMove_Update()
 
 	}
 
-
+	for (glc2text* text : m_texts)
+	{
+		text->Updateglc2text();
+	}
 	m_time = GetTickCount64();
 }
 void Aimtest::FrameMove_Mouse()

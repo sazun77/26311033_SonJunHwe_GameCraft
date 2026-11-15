@@ -13,7 +13,7 @@ target::target(std::mt19937& m_randomEngine, glc2window* windowP, CSTR filename,
 {
 }
 
-void target::Update()
+void target::Updatetarget()
 {
 	if (m_time > m_lifeSpan)
 	{

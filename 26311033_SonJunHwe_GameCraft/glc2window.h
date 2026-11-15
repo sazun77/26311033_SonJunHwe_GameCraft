@@ -7,6 +7,7 @@
 
 class glc2image;
 class glc2sound;
+class glc2text;
 typedef D3DXVECTOR2							VEC2;
 typedef	uint8_t								KEYCODE;
 
@@ -63,6 +64,8 @@ public:
 	
 	void AddImage(glc2image* glc2image);
 	void DeleteImage(glc2image* glc2image);
+	void AddText(glc2text* glc2text);
+	void DeleteText(glc2text* glc2text);
 	void AddSound(glc2sound* glc2sound);
 	void DeleteSound(glc2sound* glc2sound);
 
@@ -77,6 +80,7 @@ public:
 	int GetMouseX();
 	int GetMouseY();
 	int GetFont();
+	int GetFontSize();
 	
 protected:
 	HWND m_hWnd{};
@@ -94,7 +98,9 @@ protected:
 	const KEYCODE* m_keyboardP{};
 
 	std::vector< glc2image*> m_images{};
+	std::vector< glc2text*> m_texts{};
 	std::vector< glc2sound*> m_sounds{};
 
 	int m_font=-1;
+	int m_fontSize = 20;
 };
