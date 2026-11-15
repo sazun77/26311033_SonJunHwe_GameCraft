@@ -24,12 +24,12 @@ Aimtest::Aimtest()
 	text_score = new ScoreText(this);
 
 	m_target = new target(m_randomEngine,this, "Resource/Images/target.png"); m_target->SetScale(0.2f);
-	image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false); image_gunfire->SetScale(0.6f);
+	//image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false); image_gunfire->SetScale(0.6f);
 	image_aimpoint = new glc2image(this, "Resource/Images/aimpoint.png"); image_aimpoint->SetScale(0.3f);
 	image_reloading = new glc2image(this, "Resource/Images/reloading.png", 100, 100); image_reloading->SetVisible(false); image_reloading->SetScale(0.3f);
 
 
-	//sound_gunfire = new glc2sound(this, "Resource/Sounds/gunfire.wav");
+	sound_gunfire = new glc2sound(this, "Resource/Sounds/gunfire.wav");
 	sound_hit = new glc2sound(this, "Resource/Sounds/hit.wav");
 	sound_jam = new glc2sound(this, "Resource/Sounds/jam.wav");
 }
@@ -37,9 +37,25 @@ Aimtest::~Aimtest()
 {
 
 }
+ULONGLONG Aimtest::GetTime()
+{
+	return m_time;
+}
 score Aimtest::GetScore()
 {
 	return m_score;
+}
+
+void Aimtest::ScoreDecreaseTimeOut()
+{
+	if (m_score >= m_maxDecreaseTimeOut)
+	{
+		m_score -= m_maxDecreaseTimeOut;
+	}
+	else
+	{
+		m_score = 0;
+	}
 }
 
 void Aimtest::FrameMove_Update()
@@ -63,7 +79,7 @@ void Aimtest::FrameMove_Update()
 			image_reloading->SetVisible(false);
 			image_aimpoint->SetVisible(true);
 			
-			m_target->LocationReset();
+			//m_target->LocationReset();
 
 			m_lastFireTime = 0;
 		}
@@ -84,6 +100,9 @@ void Aimtest::FrameMove_Update()
 	{
 		text->Updateglc2text();
 	}
+
+	m_target->Updatetarget();
+
 	m_time = GetTickCount64();
 }
 void Aimtest::FrameMove_Mouse()
@@ -178,9 +197,9 @@ void Aimtest::LclickEvent()
 {		
 	image_gunfire->SetPos(m_mouseX, m_mouseY);
 	image_gunfire->SetVisible(true);
-	image_gunfire->Setglow(GLOW_ON);
+	//image_gunfire->Setglow(GLOW_ON);
 
-	image_aimpoint->Setglow(GLOW_ON);
+	//image_aimpoint->Setglow(GLOW_ON);
 
 	image_reloading->SetVisible(true);
 	image_aimpoint->SetVisible(false);

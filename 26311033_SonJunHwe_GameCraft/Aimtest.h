@@ -21,7 +21,9 @@ public:
 	Aimtest();
 	~Aimtest();
 
+	ULONGLONG GetTime();
 	score GetScore();
+	void ScoreDecreaseTimeOut();
 private:
 	void FrameMove_Update() override;
 	void FrameMove_Mouse() override;
@@ -52,5 +54,5 @@ protected:
 	glc2sound* sound_jam;
 	glc2sound* sound_bgm;
 
-
+	score m_maxDecreaseTimeOut{100000};
 };
