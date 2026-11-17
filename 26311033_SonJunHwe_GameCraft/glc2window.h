@@ -85,8 +85,8 @@ public:
 protected:
 	HWND m_hWnd{};
 	VEC2 m_pos{};
-	const int m_width{960};
-	const int m_height{ 540 };
+	 int m_width{960};
+	 int m_height{ 540 };
 	const char* m_name{ "window" };
 
 	const int m_color{ 0x77777777 };

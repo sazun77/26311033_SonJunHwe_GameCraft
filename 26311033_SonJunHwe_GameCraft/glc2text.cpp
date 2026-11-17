@@ -39,10 +39,10 @@ void glc2text::Renderglc2text()
 
 void glc2text::InitialPos(const int x, const int y)
 {
-	if (y == INPUT_NULL)
+	if (y == INPUT_NULL_INT)
 	{
-		m_pos.x = INPUT_NULL;
-		m_pos.y = INPUT_NULL;
+		m_pos.x = INPUT_NULL_INT;
+		m_pos.y = INPUT_NULL_INT;
 	}
 	else
 	{

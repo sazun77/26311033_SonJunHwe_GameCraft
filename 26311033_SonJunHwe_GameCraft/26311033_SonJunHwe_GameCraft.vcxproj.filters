@@ -13,66 +13,75 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="소스 파일\Base">
+      <UniqueIdentifier>{8193e7a4-cb7c-49cf-952b-633caaf5234e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\Instance">
+      <UniqueIdentifier>{6b725369-2118-44f7-9f36-17960a92c600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Base">
+      <UniqueIdentifier>{16d411db-1933-49df-a19a-76c2796c978c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일\Instance">
+      <UniqueIdentifier>{c73868fa-bc4c-4590-9cb2-defea1c65128}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="mian.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="glc2window.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="glc2image.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Base</Filter>
     </ClCompile>
     <ClCompile Include="glc2sound.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Utility.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Aimtest.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="target.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Base</Filter>
     </ClCompile>
     <ClCompile Include="glc2text.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="glc2window.cpp">
+      <Filter>소스 파일\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility.cpp">
+      <Filter>소스 파일\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="mian.cpp">
+      <Filter>소스 파일\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="target.cpp">
+      <Filter>소스 파일\Instance</Filter>
+    </ClCompile>
+    <ClCompile Include="Aimtest.cpp">
+      <Filter>소스 파일\Instance</Filter>
     </ClCompile>
     <ClCompile Include="ScoreText.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\Instance</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="myheader.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="glc2window.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
     <ClInclude Include="glc2image.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Base</Filter>
     </ClInclude>
     <ClInclude Include="glc2sound.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Utility.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Aimtest.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="target.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Base</Filter>
     </ClInclude>
     <ClInclude Include="glc2text.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="glc2window.h">
+      <Filter>헤더 파일\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility.h">
+      <Filter>헤더 파일\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="target.h">
+      <Filter>헤더 파일\Instance</Filter>
     </ClInclude>
     <ClInclude Include="ScoreText.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>헤더 파일\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="Aimtest.h">
+      <Filter>헤더 파일\Instance</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

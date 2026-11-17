@@ -143,7 +143,6 @@
     <ClInclude Include="glc2sound.h" />
     <ClInclude Include="glc2text.h" />
     <ClInclude Include="glc2window.h" />
-    <ClInclude Include="myheader.h" />
     <ClInclude Include="ScoreText.h" />
     <ClInclude Include="target.h" />
     <ClInclude Include="Utility.h" />

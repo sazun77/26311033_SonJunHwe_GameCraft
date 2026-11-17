@@ -11,7 +11,6 @@
 target::target(std::mt19937& m_randomEngine, glc2window* windowP, CSTR filename, const float x, const float y)
 	:m_randomEngineRef(m_randomEngine),glc2image(windowP, filename, x, y)
 {
-	LocationReset();
 }
 
 void target::Updatetarget()
@@ -20,11 +19,18 @@ void target::Updatetarget()
 
 	m_time += GetTickCount64() - ptr->GetTime();
 
+	// 일정 시간마다 초기화.
 	if (m_time > m_lifeSpan)
 	{
-		LocationReset();
-		ptr->ScoreDecreaseTimeOut();
+		if (0 != m_hp)
+		{
+			ptr->ScoreDecreaseTimeOut();
+		}
 
+		m_hp = 1;
+		m_time = 0;
+
+		LocationReset();
 	}
 }
 
@@ -35,7 +41,4 @@ void target::LocationReset()
 
 	SetPosX(static_cast<float>(xLocation(m_randomEngineRef)));
 	SetPosY(static_cast<float>(yLocation(m_randomEngineRef)));
-
-		m_time = 0;
-
 }

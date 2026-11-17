@@ -1,12 +1,12 @@
 #pragma once
 #include "glc2d.h"
-#define INPUT_NULL -777
+#define INPUT_NULL_INT -777
 
 class glc2window;
 class glc2text
 {	
 public:	
-	glc2text(glc2window* windowP, CSTR inputText=nullptr, const int x = INPUT_NULL, const int y = INPUT_NULL);
+	glc2text(glc2window* windowP, CSTR inputText=nullptr, const int x = INPUT_NULL_INT, const int y = INPUT_NULL_INT);
 	~glc2text();
 
 	void Updateglc2text();

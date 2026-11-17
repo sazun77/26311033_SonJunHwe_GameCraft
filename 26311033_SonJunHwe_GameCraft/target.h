@@ -10,13 +10,18 @@ class target : public glc2image
 {
 private:
 	std::mt19937& m_randomEngineRef;
-	ULONGLONG m_time{ 0 };
-	ULONGLONG m_lifeSpan{ 1000 };
+	ULONGLONG m_time{};
+	ULONGLONG m_lifeSpan{ 1*1000 };
+
+	int m_hp{ 1 };
+//¸â¹ö ÇÔ¼ö
 public:
 	using glc2image::glc2image;
 	target(std::mt19937& m_randomEngine, glc2window* windowP, CSTR filename, const float x = INPUT_NULL, const float y = INPUT_NULL);
 	
 	void Updatetarget();
+	void GetHit() { m_hp = 0; };
+
 	void LocationReset();
 };
 

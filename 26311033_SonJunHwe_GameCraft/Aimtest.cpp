@@ -18,20 +18,29 @@ Aimtest::Aimtest()
 	std::random_device rd;
 	m_randomEngine.seed(rd());
 	
+
+	 m_width =  GetSystemMetrics(SM_CXSCREEN) / 2 ;
+	 m_height= GetSystemMetrics(SM_CYSCREEN) / 2 ;
+
+
+
 	m_font = g2_FontCreate("Consolas", m_fontSize);
 	
 	
 	text_score = new ScoreText(this);
 
 	m_target = new target(m_randomEngine,this, "Resource/Images/target.png"); m_target->SetScale(0.2f);
-	//image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false); image_gunfire->SetScale(0.6f);
+	image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false); image_gunfire->SetScale(0.6f);
 	image_aimpoint = new glc2image(this, "Resource/Images/aimpoint.png"); image_aimpoint->SetScale(0.3f);
 	image_reloading = new glc2image(this, "Resource/Images/reloading.png", 100, 100); image_reloading->SetVisible(false); image_reloading->SetScale(0.3f);
-
 
 	sound_gunfire = new glc2sound(this, "Resource/Sounds/gunfire.wav");
 	sound_hit = new glc2sound(this, "Resource/Sounds/hit.wav");
 	sound_jam = new glc2sound(this, "Resource/Sounds/jam.wav");
+	sound_bgm = new glc2sound(this, "Resource/Sounds/bgm.wav");
+
+	m_target->LocationReset();
+
 }
 Aimtest::~Aimtest()
 {
@@ -60,50 +69,20 @@ void Aimtest::ScoreDecreaseTimeOut()
 
 void Aimtest::FrameMove_Update()
 {
-	// 실험용 코드들.
-	//m_mouseX = 100;
-	//m_mouseY = 100;
-
-	// 조준점 위치 업데이트
-	image_aimpoint->SetPos(m_mouseX, m_mouseY);
-	image_reloading->SetPosByLT(image_aimpoint->GetPosX(), image_aimpoint->GetPosY());
-	//image_reloading->SetPosByLT(image_aimpoint->GetPosX()+ image_aimpoint->GetWidth(), image_aimpoint->GetPosY()+ image_aimpoint->GetHeight());
-	//image_reloading->SetPosByAbsoluteCoordinate(static_cast<float>(m_mouseX-image_aimpoint->GetWidth()/2), static_cast<float>(m_mouseY- image_aimpoint->GetHeight() / 2));		
-	//DEBUGLOG(m_mouseX << '\n' << m_mouseY << '\n');
-
-	// 발사 후, 관련 후속 처리.
-	if (0 != m_lastFireTime)
+	switch (m_scene)
 	{
-		if (COOLTIME_FIRE <= m_time - m_lastFireTime)
-		{
-			image_reloading->SetVisible(false);
-			image_aimpoint->SetVisible(true);
-			
-			//m_target->LocationReset();
-
-			m_lastFireTime = 0;
-		}
-		else if (COOLTIME_FIRE / 2 <= m_time - m_lastFireTime && image_gunfire->GetIsVisible() == true)
-		{
-			image_gunfire->SetVisible(false);
-		}
-		else if (COOLTIME_FIRE / 3 <= m_time - m_lastFireTime && image_aimpoint->GetIsVisible() == true)
-		{
-			image_gunfire->Setglow(GLOW_OFF);
-
-			image_aimpoint->Setglow(GLOW_OFF);
-		}
-
+	case SCENE_START:
+		SceneStart();
+		break;
+	case SCENE_MAIN:
+		SceneMain();
+		break;
+	case SCENE_END:
+		SceneEnd();	
+		break;
+	default:
+		break;
 	}
-
-	for (glc2text* text : m_texts)
-	{
-		text->Updateglc2text();
-	}
-
-	m_target->Updatetarget();
-
-	m_time = GetTickCount64();
 }
 void Aimtest::FrameMove_Mouse()
 {
@@ -122,6 +101,70 @@ void Aimtest::FrameMove_Keyboard()
 	m_keyboardP = g2_GetKeyboard();
 
 	CheckEscape();
+}
+
+void Aimtest::SceneStart()
+{
+	ULONGLONG currentTime = GetTickCount64();
+
+	m_timer += currentTime - m_time;
+
+
+	if(m_timer > 3 * SECOND)
+	{
+		m_scene = SCENE_MAIN;
+		m_timer = 0;
+	}
+
+
+	m_time = currentTime;
+}
+
+void Aimtest::SceneMain()
+{
+	// 실험용 코드들.
+	//m_mouseX = 100;
+	//m_mouseY = 100;
+
+	// 조준점 위치 업데이트
+	image_aimpoint->SetPos(m_mouseX, m_mouseY);
+	image_reloading->SetPosByLT(image_aimpoint->GetPosX(), image_aimpoint->GetPosY());
+	//image_reloading->SetPosByLT(image_aimpoint->GetPosX()+ image_aimpoint->GetWidth(), image_aimpoint->GetPosY()+ image_aimpoint->GetHeight());
+	//image_reloading->SetPosByAbsoluteCoordinate(static_cast<float>(m_mouseX-image_aimpoint->GetWidth()/2), static_cast<float>(m_mouseY- image_aimpoint->GetHeight() / 2));		
+	//DEBUGLOG(m_mouseX << '\n' << m_mouseY << '\n');
+
+	// 발사 후, 관련 후속 처리.
+	if (0 != m_timer)
+	{
+		if (COOLTIME_FIRE <= m_time - m_timer)
+		{
+			image_reloading->SetVisible(false);
+			image_aimpoint->SetVisible(true);
+			
+			//m_target->LocationReset();
+
+			m_timer = 0;
+		}
+		else if (COOLTIME_FIRE / 2 <= m_time - m_timer && image_gunfire->GetIsVisible() == true)
+		{
+			image_gunfire->SetVisible(false);
+		}
+		else if (COOLTIME_FIRE / 3 <= m_time - m_timer && image_aimpoint->GetIsVisible() == true)
+		{
+			image_gunfire->Setglow(GLOW_OFF);
+
+			image_aimpoint->Setglow(GLOW_OFF);
+		}
+	}
+
+	for (glc2text* text : m_texts)
+	{
+		text->Updateglc2text();
+	}
+
+	m_target->Updatetarget();
+
+	m_time = GetTickCount64();
 }
 
 void Aimtest::SetMousePos()
@@ -169,14 +212,14 @@ void Aimtest::MouseEvent(const mouse currentMouse)
 			{
 			case LButton:
 			{
-				if (m_time - m_lastFireTime >= COOLTIME_FIRE)
+				if (m_time - m_timer >= COOLTIME_FIRE)
 				{
 					// 이미지 처리.
 					LclickEvent();
 
 					ScoreCalculate();
 
-					m_lastFireTime = m_time;
+					m_timer = m_time;
 				}
 				else
 				{
@@ -214,28 +257,24 @@ void Aimtest::ScoreCalculate()
 	score distY = static_cast<score>(m_target->GetPosMidY()-GetMouseY()); distY *= distY;
 
 	// 점수를 올릴 수 있는 거리인가?
-	if (distX + distY <maxScore)
+	if (distX + distY < maxScore)
 	{
 		score fineScore = maxScore - distX - distY;
-		score debugScore = maxScore  * m_perfectCutline * m_perfectCutline/ 10000;
-		
+		score debugScore = maxScore * m_perfectCutline * m_perfectCutline / 10000;
+			
+		m_target->GetHit();
+
 		if (fineScore >= debugScore)
 		{
 			DEBUGLOG("Perfect!\n");
 			m_score += maxScore;
 		}
-		m_score += fineScore;
-	}
-	else
-	{	
-		if (m_score >= distX + distY)
-		{
-			m_score -= distX + distY;
-		}
 		else
 		{
-			m_score = 0;
+
+			m_score += fineScore;
 		}
 	}
+
 	DEBUGLOG(m_score << '\n');
 }
