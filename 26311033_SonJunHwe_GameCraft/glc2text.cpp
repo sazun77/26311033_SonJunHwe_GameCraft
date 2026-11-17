@@ -7,7 +7,7 @@ glc2text::glc2text(glc2window* windowP, CSTR inputText, const int x, const int y
 {
 	m_windowP = windowP;
 	
-	m_text = inputText;
+	m_textP = inputText;
 
 	InitialPos(x,y);
 
@@ -34,7 +34,7 @@ void glc2text::Renderglc2text()
 		return;
 	}
 
-	g2_FontDrawText(m_windowP->GetFont(), m_pos,m_color,m_text);
+	g2_FontDrawText(m_windowP->GetFont(), m_pos,m_color,m_textP);
 }
 
 void glc2text::InitialPos(const int x, const int y)

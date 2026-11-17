@@ -22,13 +22,9 @@ int main()
 {
 	SetConsole();
 
-	Aimtest aimtest{};
 
-	//aimtest.Setup();
 
-	//aimtest->Setup();
-	
-	aimtest.Run();
+	Aimtest aimtest{};	aimtest.Run();
 
 	return 0;
 }

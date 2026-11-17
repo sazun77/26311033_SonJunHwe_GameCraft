@@ -1,4 +1,6 @@
 #pragma once
+#include <string>
+
 #include "glc2d.h"
 #define INPUT_NULL_INT -777
 
@@ -22,7 +24,9 @@ protected:
 	glc2window* m_windowP;
 	bool m_doRender{ true };
 
-	const char* m_text;
+	const char* m_textP;
+	std::string m_subString{};
+
 	VEC2i m_pos;
 	unsigned int m_color{ 0xFFFFFFFF };
 };

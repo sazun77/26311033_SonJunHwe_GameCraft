@@ -10,5 +10,5 @@ void ScoreText::SetText()
 
 	Aimtest* aimtestP = static_cast<Aimtest*>(m_windowP);
 	m_subString = "Score : " + std::to_string(aimtestP->GetScore());
-	m_text = m_subString.c_str();
+	m_textP = m_subString.c_str();
 }

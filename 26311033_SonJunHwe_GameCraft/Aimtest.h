@@ -31,6 +31,8 @@ public:
 	ULONGLONG GetTime();
 	score GetScore();
 	void ScoreDecreaseTimeOut();
+	void SetFireAble();
+
 private:
 	void FrameMove_Update() override;
 	void FrameMove_Mouse() override;
@@ -51,7 +53,7 @@ public:
 	score m_perfectCutline{ 99 };
 	SCENE m_scene{ SCENE_START };
 protected:
-	ULONGLONG m_time{0};
+	ULONGLONG m_time;
 	ULONGLONG m_timer{0};
 
 	target* m_target;
@@ -59,6 +61,7 @@ protected:
 	glc2image* image_gunfire;
 	glc2image* image_reloading;
 
+	glc2text* text_countdown;
 	glc2text* text_score;
 
 	glc2sound* sound_gunfire;

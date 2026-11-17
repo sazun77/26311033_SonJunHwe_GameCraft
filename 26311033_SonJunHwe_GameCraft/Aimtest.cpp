@@ -1,4 +1,6 @@
-#include "Aimtest.h"
+#include <iostream>
+#include <random>
+
 #include "Utility.h"
 #include "glc2window.h"
 #include "glc2image.h"
@@ -6,12 +8,11 @@
 #include "glc2sound.h"
 #include "glc2d.h"
 
+#include "Aimtest.h"
 #include "target.h"
-
 #include "ScoreText.h"
+#include "textCountdown.h"
 
-#include <iostream>
-#include <random>
 
 Aimtest::Aimtest()
 {
@@ -22,16 +23,16 @@ Aimtest::Aimtest()
 	 m_width =  GetSystemMetrics(SM_CXSCREEN) / 2 ;
 	 m_height= GetSystemMetrics(SM_CYSCREEN) / 2 ;
 
-
+	 m_time = GetTickCount64();
 
 	m_font = g2_FontCreate("Consolas", m_fontSize);
 	
-	
+	text_countdown = new textCountdown(this,nullptr);
 	text_score = new ScoreText(this);
 
-	m_target = new target(m_randomEngine,this, "Resource/Images/target.png"); m_target->SetScale(0.2f);
+	m_target = new target(m_randomEngine,this, "Resource/Images/target.png"); m_target->SetScale(0.2f); m_target->SetVisible(false);
 	image_gunfire = new glc2image(this, "Resource/Images/gunfire.png", 100, 100);	image_gunfire->SetVisible(false); image_gunfire->SetScale(0.6f);
-	image_aimpoint = new glc2image(this, "Resource/Images/aimpoint.png"); image_aimpoint->SetScale(0.3f);
+	image_aimpoint = new glc2image(this, "Resource/Images/aimpoint.png"); image_aimpoint->SetScale(0.3f); image_aimpoint->SetVisible(false);
 	image_reloading = new glc2image(this, "Resource/Images/reloading.png", 100, 100); image_reloading->SetVisible(false); image_reloading->SetScale(0.3f);
 
 	sound_gunfire = new glc2sound(this, "Resource/Sounds/gunfire.wav");
@@ -67,6 +68,16 @@ void Aimtest::ScoreDecreaseTimeOut()
 	}
 }
 
+void Aimtest::SetFireAble()
+{
+		image_reloading->SetVisible(false);
+		image_aimpoint->SetVisible(true);
+
+		//m_target->LocationReset();
+
+		m_timer = 0;
+}
+
 void Aimtest::FrameMove_Update()
 {
 	switch (m_scene)
@@ -86,6 +97,8 @@ void Aimtest::FrameMove_Update()
 }
 void Aimtest::FrameMove_Mouse()
 {
+	if (SCENE_MAIN != m_scene) { return; }
+
 	mouse currentMouse{};	
 
 	SetMousePos();
@@ -98,6 +111,8 @@ void Aimtest::FrameMove_Mouse()
 }
 void Aimtest::FrameMove_Keyboard()
 {
+	if (SCENE_MAIN != m_scene) { return; }
+
 	m_keyboardP = g2_GetKeyboard();
 
 	CheckEscape();
@@ -105,15 +120,22 @@ void Aimtest::FrameMove_Keyboard()
 
 void Aimtest::SceneStart()
 {
+	textCountdown* ptr = static_cast<textCountdown*>(text_countdown);
+
 	ULONGLONG currentTime = GetTickCount64();
 
 	m_timer += currentTime - m_time;
 
-
-	if(m_timer > 3 * SECOND)
+	ptr->Updateglc2text();
+	ptr->SetNumber(static_cast<int>(m_timer / SECOND));
+	if (m_timer > (STARTCOUNTDOWN+1)*SECOND)
 	{
+		delete text_countdown;
 		m_scene = SCENE_MAIN;
 		m_timer = 0;
+
+		m_target->SetVisible(true);
+		image_aimpoint->SetVisible(true);
 	}
 
 
@@ -136,16 +158,7 @@ void Aimtest::SceneMain()
 	// 발사 후, 관련 후속 처리.
 	if (0 != m_timer)
 	{
-		if (COOLTIME_FIRE <= m_time - m_timer)
-		{
-			image_reloading->SetVisible(false);
-			image_aimpoint->SetVisible(true);
-			
-			//m_target->LocationReset();
-
-			m_timer = 0;
-		}
-		else if (COOLTIME_FIRE / 2 <= m_time - m_timer && image_gunfire->GetIsVisible() == true)
+		if (COOLTIME_FIRE / 2 <= m_time - m_timer && image_gunfire->GetIsVisible() == true)
 		{
 			image_gunfire->SetVisible(false);
 		}

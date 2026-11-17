@@ -11,6 +11,7 @@
 target::target(std::mt19937& m_randomEngine, glc2window* windowP, CSTR filename, const float x, const float y)
 	:m_randomEngineRef(m_randomEngine),glc2image(windowP, filename, x, y)
 {
+	m_lifeSpan = COOLTIME_FIRE;
 }
 
 void target::Updatetarget()
@@ -30,6 +31,7 @@ void target::Updatetarget()
 		m_hp = 1;
 		m_time = 0;
 
+		ptr->SetFireAble();
 		LocationReset();
 	}
 }

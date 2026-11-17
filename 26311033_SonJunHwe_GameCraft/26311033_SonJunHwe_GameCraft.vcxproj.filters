@@ -57,6 +57,9 @@
     <ClCompile Include="ScoreText.cpp">
       <Filter>소스 파일\Instance</Filter>
     </ClCompile>
+    <ClCompile Include="textCountdown.cpp">
+      <Filter>소스 파일\Instance</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="glc2image.h">
@@ -81,6 +84,9 @@
       <Filter>헤더 파일\Instance</Filter>
     </ClInclude>
     <ClInclude Include="Aimtest.h">
+      <Filter>헤더 파일\Instance</Filter>
+    </ClInclude>
+    <ClInclude Include="textCountdown.h">
       <Filter>헤더 파일\Instance</Filter>
     </ClInclude>
   </ItemGroup>
