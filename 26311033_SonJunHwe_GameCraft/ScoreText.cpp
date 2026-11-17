@@ -1,5 +1,5 @@
 #include "ScoreText.h"
-#include"glc2window.h";
+#include"glc2window.h"
 #include "Aimtest.h"
 #include <string>
 

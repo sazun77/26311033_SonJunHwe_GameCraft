@@ -78,7 +78,7 @@ void Aimtest::FrameMove_Update()
 		SceneMain();
 		break;
 	case SCENE_END:
-		SceneEnd();	
+		//SceneEnd();	
 		break;
 	default:
 		break;

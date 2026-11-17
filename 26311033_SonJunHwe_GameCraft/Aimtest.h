@@ -38,7 +38,7 @@ private:
 
 	void SceneStart();
 	void SceneMain();
-	void SceneEnd();
+	//void SceneEnd();
 
 	void SetMousePos();
 	void SetcurrentMouse(mouse & currentMouse);
